@@ -1,20 +1,8 @@
 import type React from "react"
 import type { Metadata } from "next"
-import localFont from "next/font/local"
 import "./globals.css"
 import { HeaderComponent } from "@/components/header"
 import { Footer } from "@/components/footer"
-
-const geistSans = localFont({
-  src: "./fonts/GeistVF.woff",
-  variable: "--font-geist-sans",
-  weight: "100 900",
-})
-const geistMono = localFont({
-  src: "./fonts/GeistMonoVF.woff",
-  variable: "--font-geist-mono",
-  weight: "100 900",
-})
 
 export const metadata: Metadata = {
   title: "TheFurryWaggers - Pet Stop",
@@ -28,9 +16,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col min-h-screen bg-gradient-to-r from-blue-200 to-blue-100`}
-      >
+      <body className="antialiased flex flex-col min-h-screen bg-gradient-to-r from-blue-200 to-blue-100 font-sans">
         <HeaderComponent />
         <main className="flex-grow">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">

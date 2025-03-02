@@ -216,7 +216,7 @@ export function CuteWaggersHomeComponent() {
               </div>
               <div className="w-full md:w-1/2">
                 <Image
-                  src="/placeholder.svg?height=400&width=500"
+                  src="/images/doggie.jpg?height=400&width=500"
                   alt="Dog grooming promotion"
                   width={500}
                   height={400}
@@ -235,7 +235,7 @@ export function CuteWaggersHomeComponent() {
         <section className="flex flex-col md:flex-row items-center gap-12">
           <div className="w-full md:w-1/2">
             <Image
-              src="/placeholder.svg?height=400&width=500"
+              src="/images/doggie.jpg?height=400&width=500"
               alt="Cute dog"
               width={500}
               height={400}
