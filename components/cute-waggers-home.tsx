@@ -216,7 +216,7 @@ export function CuteWaggersHomeComponent() {
               </div>
               <div className="w-full md:w-1/2">
                 <Image
-                  src="/images/doggie.jpg?height=400&width=500"
+                  src="/placeholder.svg?height=400&width=500"
                   alt="Dog grooming promotion"
                   width={500}
                   height={400}
