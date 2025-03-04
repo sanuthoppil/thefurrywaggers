@@ -3,7 +3,6 @@
 import Link from "next/link"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
-import { PawPrint } from "lucide-react"
 import { useState } from "react"
 
 export function HeaderComponent() {
@@ -14,7 +13,14 @@ export function HeaderComponent() {
       <div className="max-w-7xl mx-auto flex items-center justify-between">
         <Link href="/" className="flex items-center space-x-2">
           <div className="relative flex items-center">
-            <PawPrint className="h-6 w-6 text-black mr-2" />
+            <Image
+              src="/images/tfw_logo.png"
+              alt="The Furry Waggers Logo"
+              width={40}
+              height={40}
+              className="mr-2"
+              priority
+            />
             <span className="text-xl font-bold text-black">TheFurryWaggers</span>
             <span className="absolute -bottom-3 right-0 text-xs font-bold text-black">pet stop</span>
           </div>

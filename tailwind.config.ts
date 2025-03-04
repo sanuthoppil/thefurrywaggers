@@ -52,6 +52,10 @@ const config: Config = {
           "5": "hsl(var(--chart-5))",
         },
       },
+      animation: {
+        sparkle: "sparkle 3s ease-in-out infinite",
+        pulse: "pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite",
+      },
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",

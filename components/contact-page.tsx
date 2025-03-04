@@ -103,21 +103,23 @@ export function CuteWaggersContactComponent() {
                   <MapPin className="w-6 h-6 text-blue-600 mr-3 mt-1 flex-shrink-0" />
                   <div>
                     <h3 className="font-semibold">Our Location</h3>
-                    <p className="text-gray-600">123 Pet Street, Dogtown, CA 90210</p>
+                    <p className="text-gray-600">
+                      918, 3rd Cross Rd, HRBR Layout 1st Block, HRBR Layout, Banaswadi, Bengaluru, Karnataka 560043
+                    </p>
                   </div>
                 </div>
                 <div className="flex items-start">
                   <Phone className="w-6 h-6 text-blue-600 mr-3 mt-1 flex-shrink-0" />
                   <div>
                     <h3 className="font-semibold">Phone Number</h3>
-                    <p className="text-gray-600">+1 (555) 123-4567</p>
+                    <p className="text-gray-600">+91 98452 61456</p>
                   </div>
                 </div>
                 <div className="flex items-start">
                   <Mail className="w-6 h-6 text-blue-600 mr-3 mt-1 flex-shrink-0" />
                   <div>
                     <h3 className="font-semibold">Email Address</h3>
-                    <p className="text-gray-600">info@thefurrywaggers.com</p>
+                    <p className="text-gray-600">Abhinav82ganapathy@gmail.com</p>
                   </div>
                 </div>
                 <div className="flex items-start">

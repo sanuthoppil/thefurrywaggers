@@ -5,12 +5,17 @@ import { Button } from "@/components/ui/button"
 import { useEffect, useRef, useState } from "react"
 import { ChevronLeft, ChevronRight, Mail, Phone, X } from "lucide-react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { GoldenTouchSection } from "./golden-touch-section"
+import { RollingTextAnimation } from "./rolling-text"
 
 export function CuteWaggersHomeComponent() {
   const [offset, setOffset] = useState(0)
   const parallaxRef = useRef<HTMLDivElement>(null)
   const [currentSlide, setCurrentSlide] = useState(0)
   const [openCard, setOpenCard] = useState<"services" | "supplies" | null>(null)
+  const [scrollY, setScrollY] = useState(0)
+  const petSectionRef = useRef<HTMLElement>(null)
+  const [petSectionTop, setPetSectionTop] = useState(0)
 
   const customers = [
     {
@@ -47,6 +52,8 @@ export function CuteWaggersHomeComponent() {
 
   useEffect(() => {
     const handleScroll = () => {
+      setScrollY(window.scrollY)
+
       if (parallaxRef.current) {
         const scrollPosition = window.pageYOffset
         const elementPosition = parallaxRef.current.offsetTop
@@ -57,6 +64,17 @@ export function CuteWaggersHomeComponent() {
           setOffset((scrollPosition - elementPosition) * 0.5)
         }
       }
+
+      if (petSectionRef.current) {
+        const rect = petSectionRef.current.getBoundingClientRect()
+        setPetSectionTop(rect.top)
+      }
+    }
+
+    // Set initial position
+    if (petSectionRef.current) {
+      const rect = petSectionRef.current.getBoundingClientRect()
+      setPetSectionTop(rect.top)
     }
 
     window.addEventListener("scroll", handleScroll)
@@ -122,6 +140,19 @@ export function CuteWaggersHomeComponent() {
       image: "/placeholder.svg?height=100&width=100",
     },
   ]
+
+  // Calculate scroll progress for the pet section
+  const calculateScrollProgress = () => {
+    if (petSectionTop <= 0) return 1 // Fully scrolled
+    if (petSectionTop >= window.innerHeight / 3) return 0 // Not scrolled yet
+
+    // Calculate progress between 0 and 1 with a faster transition
+    return 1 - petSectionTop / (window.innerHeight / 3)
+  }
+
+  const scrollProgress = calculateScrollProgress()
+  const blurAmount = 10 * (1 - scrollProgress) // 10px blur at start, 0px at end
+  const textTopOffset = -100 * (1 - scrollProgress) + scrollProgress * 50 // -100px at start, +50px at end
 
   const ServiceCard = () => (
     <Card className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[90%] max-w-2xl max-h-[80vh] overflow-y-auto z-50">
@@ -228,6 +259,62 @@ export function CuteWaggersHomeComponent() {
         </div>
       </div>
 
+      {/* Cats and Dogs Section with Scroll Effect */}
+      <section ref={petSectionRef} className="mb-16 relative overflow-hidden h-[500px]">
+        <div className="bg-gradient-to-r from-blue-50 to-green-50 rounded-xl shadow-lg h-full">
+          <div className="flex flex-col md:flex-row items-center h-full">
+            {/* Left side with cat icons */}
+            <div className="w-full md:w-1/6 p-4 flex flex-col items-center justify-center space-y-6">
+              <div className="text-5xl">🐱</div>
+              <div className="text-5xl">😺</div>
+              <div className="text-5xl">😸</div>
+            </div>
+
+            {/* Center content with scroll effect */}
+            <div className="w-full md:w-4/6 p-8 flex flex-col items-center justify-center h-full relative">
+              {/* Image with blur effect */}
+              <div className="absolute inset-0 w-full h-full flex items-center justify-center p-8">
+                <div className="relative w-full max-w-md aspect-video">
+                  <Image
+                    src="/images/petinhands.jpg?height=300&width=500"
+                    alt="Happy pets"
+                    width={500}
+                    height={300}
+                    className="rounded-lg shadow-md w-full h-auto object-cover transition-all duration-500"
+                    style={{ filter: `blur(${blurAmount}px)` }}
+                  />
+                </div>
+              </div>
+
+              {/* Text overlay with scroll effect */}
+              <div
+                className="relative z-10 text-center transition-all duration-500 mt-8"
+                style={{ transform: `translateY(${textTopOffset}px)` }}
+              >
+                <h2 className="text-4xl md:text-5xl font-extrabold bg-gradient-to-r from-blue-600 to-green-600 bg-clip-text text-transparent mb-4 transform hover:scale-105 transition-transform duration-300">
+                  Put your pet in Good Hands
+                </h2>
+                <div className="h-1 w-32 mx-auto bg-gradient-to-r from-blue-500 to-green-500 rounded-full"></div>
+              </div>
+            </div>
+
+            {/* Right side with dog icons */}
+            <div className="w-full md:w-1/6 p-4 flex flex-col items-center justify-center space-y-6">
+              <div className="text-5xl">🐶</div>
+              <div className="text-5xl">🐕</div>
+              <div className="text-5xl">🦮</div>
+            </div>
+          </div>
+        </div>
+
+        {/* Decorative elements */}
+        <div className="absolute -top-4 -left-4 w-16 h-16 bg-blue-200 rounded-full opacity-50"></div>
+        <div className="absolute -bottom-4 -right-4 w-16 h-16 bg-green-200 rounded-full opacity-50"></div>
+      </section>
+
+      {/* Golden Touch Section */}
+      <GoldenTouchSection />
+
       {/* Main Content */}
       <div className="space-y-16">
         <h1 className="text-5xl font-bold text-center">TheFurryWaggers</h1>
@@ -245,9 +332,22 @@ export function CuteWaggersHomeComponent() {
           <div className="w-full md:w-1/2">
             <h2 className="text-3xl font-semibold mb-6">Welcome to TheFurryWaggers</h2>
             <p className="text-lg text-gray-600 leading-relaxed">
-              At TheFurryWaggers, we're passionate about providing the best care and products for your furry friends.
-              From top-quality pet supplies to professional grooming services, we've got everything your dog needs to
-              stay happy, healthy, and adorable!
+              Hi, we are THE FURRY WAGGERS, the neighbourhood PET STOP. We are the perfect match to your search… "pet
+              store near me" or "pet groomers near me".
+            </p>
+            <p className="text-lg text-gray-600 leading-relaxed mt-4">
+              First you will find us at: 918, 3rd Cross Road, HRBR Layout 1st Block, HRBR Layout, Banaswadi, Bengaluru,
+              Karnataka – 560043,
+            </p>
+            <p className="text-lg text-gray-600 leading-relaxed mt-4">
+              Then you will find that we are absolute pet-lovers,
+            </p>
+            <p className="text-lg text-gray-600 leading-relaxed mt-4">
+              Then you will find that we do our job remarkably professionally,
+            </p>
+            <p className="text-lg text-gray-600 leading-relaxed mt-4">
+              And by the time you find out that the convenience of our location and the quality of our service is
+              justifiably priced… your pet might have fallen in love with the hands that rocked his/her world!
             </p>
           </div>
         </section>
@@ -287,14 +387,20 @@ export function CuteWaggersHomeComponent() {
           </div>
           <div className="w-full md:w-2/3">
             <p className="text-lg text-gray-600 leading-relaxed">
-              TheFurryWaggers was founded with a simple mission: to provide the best possible care and products for your
-              beloved pets. Our team of passionate animal lovers is dedicated to ensuring that every tail that walks
-              through our doors leaves wagging. From our carefully curated selection of premium pet supplies to our
-              professional grooming services, we strive to make every visit to TheFurryWaggers a delightful experience
-              for both pets and their owners.
+              We, Abhinav and Arpita Ganapathi, started this boutique set-up simply because we love pets. And what
+              better way to be around them! We call it the PET-STOP, where your pets come to refresh, renew, and
+              revitalize themselves. We realize that it is important for pets to have a good, relaxing outing to the
+              groomers and that's why we're committed to treating each pet as our own, with the respect and care they
+              deserve. We work with a well-trained groomer with a magic touch. We kid you not! he really knows how to
+              keep them happy while in grooming. He insists on using the best of products that are suitable to the pets,
+              avoiding any kind of irritation We also have a range of products – food, toys, and treats! Visit us once
+              and we promise to give our best to your favourite, time after time, at every visit.
             </p>
           </div>
         </section>
+
+        {/* Rolling Text Animation */}
+        <RollingTextAnimation />
 
         <section className="mb-16 relative z-10">
           <h2 className="text-3xl font-bold text-center mb-8">Happy Customers</h2>
@@ -367,13 +473,16 @@ export function CuteWaggersHomeComponent() {
             <div className="w-full md:w-1/2 bg-white p-6 rounded-lg shadow-md">
               <div className="flex items-center mb-4">
                 <Mail className="w-6 h-6 mr-2 text-blue-600" />
-                <p>info@thefurrywaggers.com</p>
+                <p>Abhinav82ganapathy@gmail.com</p>
               </div>
               <div className="flex items-center mb-4">
                 <Phone className="w-6 h-6 mr-2 text-blue-600" />
-                <p>+1 (555) 123-4567</p>
+                <p>+91 98452 61456</p>
               </div>
-              <p className="text-gray-600">Visit us at: 123 Pet Street, Dogtown, CA 90210</p>
+              <p className="text-gray-600">
+                Visit us at: 918, 3rd Cross Rd, HRBR Layout 1st Block, HRBR Layout, Banaswadi, Bengaluru, Karnataka
+                560043
+              </p>
             </div>
           </div>
         </section>

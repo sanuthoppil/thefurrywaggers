@@ -14,9 +14,9 @@ export function CuteWaggersGalleryComponent() {
     {
       category: "Facility",
       images: [
-        { src: "/images/pet-servicespics/furry_shop.jpg?height=300&width=400", alt: "Reception area" },
-        { src: "/images/pet-servicespics/products_shop.jpg?height=300&width=400", alt: "Play area" },
-        { src: "/images/pet-servicespics/doggie_bed.jpg?height=300&width=400", alt: "Grooming station" },
+        { src: "/images/pet-sercivespics/furry_shop.jpg?height=300&width=400", alt: "Reception area" },
+        { src: "/images/pet-sercivespics/products_shop.jpg?height=300&width=400", alt: "Play area" },
+        { src: "/images/pet-servivespics/doggie_bed.jpg?height=300&width=400", alt: "Grooming station" },
       ],
     },
     {

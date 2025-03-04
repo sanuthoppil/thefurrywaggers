@@ -24,7 +24,10 @@ export function Footer() {
         </div>
         <div className="mt-8 text-center text-sm text-gray-500">
           <p>© {new Date().getFullYear()} TheFurryWaggers. All rights reserved.</p>
-          <p className="mt-1">123 Pet Street, Dogtown, CA 90210 | info@thefurrywaggers.com | +1 (555) 123-4567</p>
+          <p className="mt-1">
+            918, 3rd Cross Rd, HRBR Layout 1st Block, Banaswadi, Bengaluru, Karnataka 560043 |
+            Abhinav82ganapathy@gmail.com | +91 98452 61456
+          </p>
         </div>
       </div>
     </footer>
